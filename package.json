@@ -7,18 +7,19 @@
     "build-clean": "rm -rdf ./dist/*",
     "build-staging": "mkdir -p ./dist/staging && NODE_ENV=staging browserify index.js -d -o dist/staging/app.js -t envify -t uglifyify",
     "build-production": "mkdir -p ./dist/production && NODE_ENV=production browserify index.js -o dist/production/app.js -t envify -t uglifyify",
-    "deploy-staging": "npm run build-staging && aws s3 cp --recursive --acl public-read ./dist/staging/ s3://screencloud-cdn-staging/",
-    "deploy-production": "npm run build-production && aws s3 cp --recursive --acl public-read ./dist/production/ s3://screencloud-cdn-production/"
+    "deploy-staging": "npm run build-staging && aws s3 cp --recursive --acl public-read ./dist/staging/ s3://screencloud-cdn-staging/test/",
+    "deploy-production": "npm run build-production && aws s3 cp --recursive --acl public-read ./dist/production/ s3://screencloud-cdn-production/test/"
   },
   "author": "luke@screen.cloud",
   "license": "MIT",
+  "private": true,
   "devDependencies": {
     "browserify": "^13.0.0",
     "envify": "^3.4.0",
-    "screencloud-js-channel": "screencloud/screencloud-js-channel",
     "uglifyify": "^3.0.1"
   },
   "dependencies": {
-    "merge": "^1.2.0"
+    "merge": "^1.2.0",
+    "screencloud-js-channel": "screencloud/screencloud-js-channel"
   }
 }
