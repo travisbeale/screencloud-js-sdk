@@ -1,13 +1,13 @@
-## ScreenCloud App SDK
+## ScreenCloud JS SDK
 
 ```
-var ScreenCloudApp = require('screencloud-app')
+var ScreenCloudApp = require('screencloud-js-sdk')
 
 var app = new ScreenCloudApp({
 	name: 'My Custom App'
 })
 
-// uses async promise based api 
+// uses async promise based api
 
 app.init().then(function(){
 
