@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "description": "ScreenCloud JS SDK",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage __tests__/*_test.js",
     "build-clean": "rm -rdf ./dist/*",
     "build-staging": "mkdir -p ./dist/staging && NODE_ENV=staging browserify index.js -d -o dist/staging/app.js -t envify -t uglifyify",
     "build-production": "mkdir -p ./dist/production && NODE_ENV=production browserify index.js -o dist/production/app.js -t envify -t uglifyify",
@@ -16,10 +16,11 @@
   "devDependencies": {
     "browserify": "^13.0.0",
     "envify": "^3.4.0",
+    "jest": "^20.0.4",
     "uglifyify": "^3.0.1"
   },
   "dependencies": {
     "merge": "^1.2.0",
-    "screencloud-js-channel": "screencloud/screencloud-js-channel"
+    "postmessage-interface": "screencloud/postmessage-interface"
   }
 }
