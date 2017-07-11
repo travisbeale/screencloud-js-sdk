@@ -1,7 +1,7 @@
-var App = require('./lib/app.js')
+var PlayerProxy = require('./lib/player/player_proxy.js')
 
-if (window && !window.ScreenCloudApp) {
-  window.ScreenCloudApp = App
+if (window && !window.ScreenCloudAPI) {
+  window.ScreenCloudAPI = PlayerProxy
 }
 
-module.exports = App
+module.exports = PlayerProxy

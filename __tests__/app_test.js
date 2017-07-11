@@ -1,20 +1,30 @@
-var ScreenCloudApp = require('../index.js')
-var MockPlayerWindow = require('./mock_player_window.js')
+window.SKIP_PLAYER_WINDOW_CHECK = true
+
+var ScreenCloudPlayer = require('../index.js')
+var mockWindowBuilder = require('./mock_player_window.js')
 
 describe('app sdk', function () {
   it('should be exposed on window', function () {
-    expect(window.ScreenCloudApp).toBeDefined()
+    expect(window.ScreenCloudAPI).toBeDefined()
   })
   it('should have way to get player info', function () {
-    // window.parent = mockPlayerPMI.window
-    // console.log(window.parent)
-    var app = new ScreenCloudApp({
+    var api = new ScreenCloudAPI({
       connectTimeout: 1000
     })
-    return app.connect(MockPlayerWindow).then(() => {
+    var mockWindow = mockWindowBuilder(function (event) {
+      //console.log('got event', event)
+      window.dispatchEvent(event)
+    })
+    return api.connect(mockWindow).then(() => {
       console.log('connected!')
-      return app.getPlayerInfo().then((info) => {
-        expect(info).toBeDefined()
+      return Promise.resolve().then(() => {
+        return api.getPlayerInfo()
+      }).then((playerInfo) => {
+        expect(playerInfo).toBeDefined()
+        expect(playerInfo.id).toBe('mockplayer')
+        return api.getDeviceInfo()
+      }).then((deviceInfo) => {
+        expect(deviceInfo).toBeDefined()
       })
     })
   })

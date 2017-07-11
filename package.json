@@ -4,6 +4,7 @@
   "description": "ScreenCloud JS SDK",
   "scripts": {
     "test": "jest --coverage __tests__/*_test.js",
+    "test-report": "open ./coverage/lcov-report/index.html",
     "build-clean": "rm -rdf ./dist/*",
     "build-staging": "mkdir -p ./dist/staging && NODE_ENV=staging browserify index.js -d -o dist/staging/app.js -t envify -t uglifyify",
     "build-production": "mkdir -p ./dist/production && NODE_ENV=production browserify index.js -o dist/production/app.js -t envify -t uglifyify",

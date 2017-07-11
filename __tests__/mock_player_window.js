@@ -1,9 +1,14 @@
-var PostMessageInterface = require('postmessage-interface')
+var PMI = require('postmessage-interface')
 var mockPlayerAPI = {
   getPlayerInfo: function () {
     return {
       id: 'mockplayer',
       env: 'test'
+    }
+  },
+  getDeviceInfo: function () {
+    return {
+      platform: 'testing'
     }
   },
   getPairingCode: function () {
@@ -14,20 +19,33 @@ var mockPlayerAPI = {
   }
 }
 
-var mockPlayerPMI = new PostMessageInterface({
-  api: mockPlayerAPI,
+var mockPlayerPMI = new PMI.ExposedInterface(mockPlayerAPI, {
   window: {
-    addEventListener: function () {
-    }
+    addEventListener: function (type, handler) {}
   }
 })
 
-mockPlayerPMI.window.postMessage = function (message, origin) {
-  mockPlayerPMI.receive({
-    data: message,
-    source: window,
-    origin: origin
-  })
+function mockWindowBuilder (receiveCallback) {
+  var scope = {}
+  var window = {
+    postMessage: function (message, origin) {
+      var event = new Event('message')
+      event.data = message
+      event.origin = origin
+      event.source = {
+        postMessage: function (message, origin) {
+          var event = new Event('message')
+          event.data = message
+          event.origin = origin
+          event.source = scope.window
+          receiveCallback(event)
+        }
+      }
+      mockPlayerPMI._receive(event)
+    }
+  }
+  scope.window = window
+  return window
 }
 
-module.exports = mockPlayerPMI.window
+module.exports = mockWindowBuilder
