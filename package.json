@@ -1,6 +1,6 @@
 {
   "name": "screencloud-js-sdk",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "ScreenCloud JS SDK",
   "scripts": {
     "test": "jest --coverage __tests__/*_test.js",
