@@ -1,4 +1,4 @@
-var PMI = require('postmessage-interface')
+var PMI = require('@screencloud/postmessage-interface')
 var mockPlayerAPI = {
   getPlayerInfo: function () {
     return {

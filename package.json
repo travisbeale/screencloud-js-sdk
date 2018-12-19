@@ -1,27 +1,37 @@
 {
-  "name": "screencloud-js-sdk",
-  "version": "0.1.3",
+  "name": "@screencloud/screencloud-js-sdk",
+  "version": "0.2.0",
   "description": "ScreenCloud JS SDK",
+  "main": "index.js",
   "scripts": {
     "test": "jest --coverage __tests__/*_test.js",
     "test-report": "open ./coverage/lcov-report/index.html",
-    "build-clean": "rm -rdf ./dist/*",
-    "build-staging": "mkdir -p ./dist/staging && NODE_ENV=staging browserify index.js -d -o dist/staging/app.js -t envify -t uglifyify",
-    "build-production": "mkdir -p ./dist/production && NODE_ENV=production browserify index.js -o dist/production/app.js -t envify -t uglifyify",
-    "deploy-staging": "npm run build-staging && aws s3 cp --recursive --acl public-read ./dist/staging/ s3://screencloud-cdn-staging/test/",
+    "clean": "rimraf ./dist",
+    "prebuild-staging": "npm run clean && mkdirp ./dist/staging",
+    "prebuild-production": "npm run clean && mkdirp ./dist/production",
+    "build-staging": "cross-env NODE_ENV=staging browserify index.js -d -o dist/staging/app.js -t envify -t uglifyify",
+    "build-production": "cross-env NODE_ENV=production browserify index.js -o dist/production/app.js -t envify -t uglifyify",
+    "predeploy-staging": "npm run build-staging",
+    "predeploy-production": "npm run build-production",
+    "deploy-staging": "aws s3 cp --recursive --acl public-read ./dist/staging/ s3://screencloud-cdn-staging/test/",
     "deploy-production": "npm run build-production && aws s3 cp --recursive --acl public-read ./dist/production/ s3://screencloud-cdn-production/test/"
   },
   "author": "luke@screen.cloud",
   "license": "MIT",
-  "private": true,
+  "files": [
+    "/dist"
+  ],
   "devDependencies": {
-    "browserify": "^13.0.0",
-    "envify": "^3.4.0",
+    "browserify": "^13.3.0",
+    "cross-env": "^5.2.0",
+    "envify": "^3.4.1",
     "jest": "^20.0.4",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.6.2",
     "uglifyify": "^3.0.1"
   },
   "dependencies": {
-    "merge": "^1.2.0",
-    "postmessage-interface": "screencloud/postmessage-interface"
+    "@screencloud/postmessage-interface": "^1.0.2",
+    "merge": "^1.2.1"
   }
 }
