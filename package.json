@@ -31,7 +31,7 @@
     "uglifyify": "^3.0.1"
   },
   "dependencies": {
-    "@screencloud/postmessage-interface": "^1.0.2",
+    "@screencloud/postmessage-interface": "^1.1.1",
     "merge": "^1.2.1"
   }
 }
