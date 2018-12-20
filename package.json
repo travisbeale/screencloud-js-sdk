@@ -19,7 +19,7 @@
   "author": "luke@screen.cloud",
   "license": "MIT",
   "files": [
-    "/dist"
+    "lib"
   ],
   "devDependencies": {
     "browserify": "^13.3.0",
