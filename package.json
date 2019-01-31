@@ -1,6 +1,5 @@
 {
   "name": "@screencloud/screencloud-js-sdk",
-  "version": "0.2.0",
   "description": "ScreenCloud JS SDK",
   "main": "index.js",
   "scripts": {
@@ -14,11 +13,14 @@
     "predeploy-staging": "npm run build-staging",
     "predeploy-production": "npm run build-production",
     "deploy-staging": "aws s3 cp --recursive --acl public-read ./dist/staging/ s3://screencloud-cdn-staging/test/",
-    "deploy-production": "npm run build-production && aws s3 cp --recursive --acl public-read ./dist/production/ s3://screencloud-cdn-production/test/"
+    "deploy-production": "npm run build-production && aws s3 cp --recursive --acl public-read ./dist/production/ s3://screencloud-cdn-production/test/",
+    "semantic-release": "semantic-release"
   },
   "author": "luke@screen.cloud",
   "license": "MIT",
   "files": [
+    "dist",
+    "index.js",
     "lib"
   ],
   "devDependencies": {
@@ -28,6 +30,7 @@
     "jest": "^20.0.4",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.6.2",
+    "semantic-release": "^15.13.3",
     "uglifyify": "^3.0.1"
   },
   "dependencies": {
