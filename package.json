@@ -2,6 +2,7 @@
   "name": "@screencloud/screencloud-js-sdk",
   "description": "ScreenCloud JS SDK",
   "main": "index.js",
+  "version": "0.2.0",
   "scripts": {
     "test": "jest --coverage __tests__/*_test.js",
     "test-report": "open ./coverage/lcov-report/index.html",
